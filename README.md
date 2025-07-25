@@ -11,7 +11,7 @@ Driver for PCF8574 remote 8-bit I/O expander for I2C-bus.
 ## Installation
 
 ```sh
-idf.py add-dependency "esp-idf-lib/pcf8574^1.0.0
+idf.py add-dependency esp-idf-lib/pcf8574^1.0.0
 ```
 
 ## Support
