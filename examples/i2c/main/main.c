@@ -16,7 +16,8 @@ static uint32_t get_time_sec()
     return tv.tv_sec;
 }
 
-static const uint8_t char_data[] = {
+static const uint8_t char_data[] =
+{
     0x04, 0x0e, 0x0e, 0x0e, 0x1f, 0x00, 0x04, 0x00,
     0x1f, 0x11, 0x0a, 0x04, 0x0a, 0x11, 0x1f, 0x00
 };
@@ -28,7 +29,8 @@ static esp_err_t write_lcd_data(const hd44780_t *lcd, uint8_t data)
 
 void lcd_test(void *pvParameters)
 {
-    hd44780_t lcd = {
+    hd44780_t lcd =
+    {
         .write_cb = write_lcd_data, // use callback to send data to LCD by I2C GPIO expander
         .font = HD44780_FONT_5X8,
         .lines = 2,
