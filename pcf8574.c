@@ -109,7 +109,7 @@ esp_err_t pcf8574_get_level(i2c_dev_t *dev, uint8_t pin, uint32_t *val)
     uint8_t raw;
     esp_err_t res = pcf8574_port_read(dev, &raw);
     if (res == ESP_OK)
-        *val = raw >> pin;
+        *val = (raw >> pin) & 1;
 
     return res;
 }
