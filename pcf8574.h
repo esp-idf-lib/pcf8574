@@ -48,9 +48,9 @@ extern "C" {
  *
  * Default SCL frequency is 100kHz
  *
- * @param dev Pointer to I2C device descriptor
- * @param port I2C port number
- * @param addr I2C address (0b0100[A2][A1][A0] for PCF8574, 0b0111[A2][A1][A0] for PCF8574A)
+ * @param dev      Pointer to I2C device descriptor
+ * @param port     I2C port number
+ * @param addr     I2C address (0b0100[A2][A1][A0] for PCF8574, 0b0111[A2][A1][A0] for PCF8574A)
  * @param sda_gpio SDA GPIO
  * @param scl_gpio SCL GPIO
  * @return `ESP_OK` on success
@@ -60,7 +60,7 @@ esp_err_t pcf8574_init_desc(i2c_dev_t *dev, uint8_t addr, i2c_port_t port, gpio_
 /**
  * @brief Free device descriptor
  *
- * @param dev Pointer to I2C device descriptor
+ * @param dev     Pointer to I2C device descriptor
  * @return `ESP_OK` on success
  */
 esp_err_t pcf8574_free_desc(i2c_dev_t *dev);
@@ -68,8 +68,8 @@ esp_err_t pcf8574_free_desc(i2c_dev_t *dev);
 /**
  * @brief Read GPIO port value
  *
- * @param dev Pointer to I2C device descriptor
- * @param val 8-bit GPIO port value
+ * @param dev     Pointer to I2C device descriptor
+ * @param val     8-bit GPIO port value
  * @return `ESP_OK` on success
  */
 esp_err_t pcf8574_port_read(i2c_dev_t *dev, uint8_t *val);
@@ -77,11 +77,33 @@ esp_err_t pcf8574_port_read(i2c_dev_t *dev, uint8_t *val);
 /**
  * @brief Write value to GPIO port
  *
- * @param dev Pointer to I2C device descriptor
- * @param value GPIO port value
- * @return ESP_OK on success
+ * @param dev      Pointer to I2C device descriptor
+ * @param value    GPIO port value
+ * @return `ESP_OK` on success
  */
 esp_err_t pcf8574_port_write(i2c_dev_t *dev, uint8_t value);
+
+/**
+ * @brief Read pin level
+ *
+ * @param dev      Pointer to device descriptor
+ * @param pin      Pin number, 0..7
+ * @param[out] val 1 if pin currently in high state, 0 otherwise
+ * @return `ESP_OK` on success
+ */
+esp_err_t pcf8574_get_level(i2c_dev_t *dev, uint8_t pin, uint32_t *val);
+
+/**
+ * @brief Set pin level
+ *
+ * Pin must be set up as output
+ *
+ * @param dev      Pointer to device descriptor
+ * @param pin      Pin number, 0..7
+ * @param val      Pin level. 1 - high, 0 - low
+ * @return `ESP_OK` on success
+ */
+esp_err_t pcf8574_set_level(i2c_dev_t *dev, uint8_t pin, uint32_t val);
 
 #ifdef __cplusplus
 }

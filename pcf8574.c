@@ -101,3 +101,23 @@ esp_err_t pcf8574_port_write(i2c_dev_t *dev, uint8_t val)
 {
     return write_port(dev, val);
 }
+
+esp_err_t pcf8574_get_level(i2c_dev_t *dev, uint8_t pin, uint32_t *val)
+{
+    CHECK_ARG(val && pin < 8);
+
+    uint8_t raw;
+    esp_err_t res = pcf8574_port_read(dev, &raw);
+    if (res == ESP_OK)
+        *val = raw >> pin;
+
+    return res;
+}
+
+esp_err_t pcf8574_set_level(i2c_dev_t *dev, uint8_t pin, uint32_t val)
+{
+    uint8_t raw;
+    CHECK(pcf8574_port_read(dev, &raw));
+    raw &= ~(1 << pin) | (val ? (((uint8_t)val & 1) << pin) : 0);
+    return pcf8574_port_write(dev, raw);
+}
